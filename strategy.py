@@ -218,11 +218,11 @@ class Sarsa(Strategy):
         Employs the experienced action in the new state  <- Q(S_new, A_new).
         """
         if self.done: 
-            deltaQ = r + 0 - self.q_table[self.mypast][self.theirpast][self.my_past]
+            deltaQ = r + 0 - self.q_table[self.mypast][self.theirpast][self.mypast]
         else:
             # SARSA update
             deltaQ = r + self.gamma * self.q_table[my][their][my] - self.q_table[self.mypast][self.theirpast][self.mypast]
-        self.q_table[self.mypast][self.theirpast][self.my_past] += self.alpha * deltaQ
+        self.q_table[self.mypast][self.theirpast][self.mypast] += self.alpha * deltaQ
         return self.q_table
 
     def clone(self):

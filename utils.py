@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import matplotlib.pyplot as plt
 
 class Game:
     """
@@ -106,3 +107,29 @@ class Meeting:
             addon = ' ...'
         print("{}\t{}{} = {}".format(self.s1.name, ' '.join(map(str, self.s1_rounds[:max])), addon, self.s1_score))
         print("{}\t{}{} = {}".format(self.s2.name, ' '.join(map(str, self.s2_rounds[:max])), addon, self.s2_score))
+
+    def plot_cooperations(self):
+        '''
+        plot percentage of cooperations
+        '''
+        plt.rcParams["figure.figsize"] = (10,7)
+
+        s1_cooperations_count = [0]
+        s2_cooperations_count = [0]
+        s1_cooperations_percent = []
+        s2_cooperations_percent = []
+
+        for i in range(self.length):
+            s1_cooperations_count.append(s1_cooperations_count[-1] + self.s1_rounds[i])
+            s2_cooperations_count.append(s2_cooperations_count[-1] + self.s2_rounds[i])
+            s1_cooperations_percent.append(s1_cooperations_count[-1]/(i+1) * 100)
+            s2_cooperations_percent.append(s2_cooperations_count[-1]/(i+1) * 100)
+
+        for coop in [s1_cooperations_percent, s2_cooperations_percent]:
+            plt.plot(coop)
+        plt.axhline(50, color = 'gray', linestyle = '--', lw = 1)
+        plt.xlabel('game');
+        plt.ylabel('percentage');
+        # plt.ylim(0, 100);
+        plt.title("Number of cooperations");
+        plt.legend([self.s1.name, self.s2.name]);
