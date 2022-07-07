@@ -123,8 +123,6 @@ class QLearning(Strategy):
         else:
             # select action that maximises Q table for last state
             action = np.argmax(self.q_table[self.mypast][self.theirpast])
-        if self.done:
-            print('q_table: ', self.q_table)
         return action
 
     def update(self, my, their):
@@ -153,3 +151,6 @@ class QLearning(Strategy):
 
     def clone(self):
         return QLearning(self.alpha, self.gamma, self.og_epsilon, self.decay)
+
+    def print_qtable(self):
+        return self.q_table
