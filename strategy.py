@@ -86,7 +86,7 @@ class QLearning(Strategy):
     '''
     Player that learns the best strategies through the Q-learning algorithm. It needs:
         - alpha (optional): the learning rate, set between 0 and 1. Setting it to 0 means the Q-values are never updated, hence nothing is learned.
-                Setting a high value means that learning can occur quickly. Defaults to 0.1.
+                Setting a high value means that learning can occur quickly. Defaults to 0.3.
         - gamma (optional): discount factor, also set between 0 and 1. This models the fact that future rewards are worth less than immediate rewards.
                 Defaults to 0.95.
         - epsilon (optional): parameter for the epsilon-greedy policy, set between 0 and 1. It is the probability of taking a random action 
@@ -94,7 +94,7 @@ class QLearning(Strategy):
         - decay (optional): parameter for the decaying epsilon-greedy policy. It is the factor by which 'epsilon' is multiplied at each step, 
                 reducing it until reaching a minimum of 0.1. Defaults to 0.999.
     '''
-    def __init__(self, alpha = 0.1, gamma =0.95, epsilon = 0.3, decay = 0.999):
+    def __init__(self, alpha = 0.3, gamma =0.95, epsilon = 0.3, decay = 0.999):
         super().__init__()
         self.name = "QLearning"
         self.alpha = alpha
@@ -159,7 +159,7 @@ class Sarsa(Strategy):
     '''
     Player that learns the best strategies through the Sarsa algorithm. It needs:
         - alpha (optional): the learning rate, set between 0 and 1. Setting it to 0 means the Q-values are never updated, hence nothing is learned.
-                Setting a high value means that learning can occur quickly. Defaults to 0.1.
+                Setting a high value means that learning can occur quickly. Defaults to 0.3.
         - gamma (optional): discount factor, also set between 0 and 1. This models the fact that future rewards are worth less than immediate rewards.
                 Defaults to 0.95.
         - epsilon (optional): parameter for the epsilon-greedy policy, set between 0 and 1. It is the probability of taking a random action 
@@ -167,7 +167,7 @@ class Sarsa(Strategy):
         - decay (optional): parameter for the decaying epsilon-greedy policy. It is the factor by which 'epsilon' is multiplied at each step, 
                 reducing it until reaching a minimum of 0.1. Defaults to 0.999.
     '''
-    def __init__(self, alpha = 0.1, gamma =0.95, epsilon = 0.3, decay = 0.999):
+    def __init__(self, alpha = 0.3, gamma =0.95, epsilon = 0.3, decay = 0.999):
         super().__init__()
         self.name = "Sarsa"
         self.alpha = alpha
