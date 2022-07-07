@@ -63,7 +63,6 @@ class Meeting:
         """
         Run the meeting.
         """
-
         # reset meeting scores
         self.reinit()
 
@@ -96,8 +95,7 @@ class Meeting:
             self.s1_score += self.game.scores["x"][act.index(c1), act.index(c2)]
             self.s2_score += self.game.scores["y"][act.index(c1), act.index(c2)]
 
-    # ToDo: map 0 to C, 1 to D
-    def pretty_print(self,max=50):
+    def pretty_print(self, max=50):
         '''
         Print the outcome of the meeting, as the outcome of the first (max 'max') games and the cumulative scores.
         The score is the sum of the scores obtained on each game, according to the payoff matrix. The higher the better.
@@ -108,10 +106,11 @@ class Meeting:
         print("{}\t{}{} = {}".format(self.s1.name, ' '.join(map(str, self.s1_rounds[:max])), addon, self.s1_score))
         print("{}\t{}{} = {}".format(self.s2.name, ' '.join(map(str, self.s2_rounds[:max])), addon, self.s2_score))
 
-    def plot_cooperations(self):
+    def plot_cooperation(self):
         '''
         plot percentage of cooperations
         '''
+        # set size
         plt.rcParams["figure.figsize"] = (10,7)
 
         s1_cooperations_count = [0]
@@ -120,16 +119,19 @@ class Meeting:
         s2_cooperations_percent = []
 
         for i in range(self.length):
+            # count cooperations until time i 
             s1_cooperations_count.append(s1_cooperations_count[-1] + self.s1_rounds[i])
             s2_cooperations_count.append(s2_cooperations_count[-1] + self.s2_rounds[i])
+            # make it a percentage over amount of actions taken
             s1_cooperations_percent.append(s1_cooperations_count[-1]/(i+1) * 100)
             s2_cooperations_percent.append(s2_cooperations_count[-1]/(i+1) * 100)
 
+        # plot as lines
         for coop in [s1_cooperations_percent, s2_cooperations_percent]:
             plt.plot(coop)
+        # mark where 50% is
         plt.axhline(50, color = 'gray', linestyle = '--', lw = 1)
         plt.xlabel('game');
         plt.ylabel('percentage');
-        # plt.ylim(0, 100);
         plt.title("Number of cooperations");
         plt.legend([self.s1.name, self.s2.name]);
