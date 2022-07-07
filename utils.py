@@ -97,6 +97,10 @@ class Meeting:
 
     # ToDo: map 0 to C, 1 to D
     def pretty_print(self,max=50):
+        '''
+        Print the outcome of the meeting, as the outcome of the first (max 'max') games and the cumulative scores.
+        The score is the sum of the scores obtained on each game, according to the payoff matrix. The higher the better.
+        '''
         addon = ''
         if len(self.s1_rounds) > max:
             addon = ' ...'
