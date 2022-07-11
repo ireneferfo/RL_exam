@@ -85,19 +85,16 @@ class TitforTat(Strategy):
 class QLearning(Strategy):
     '''
     Player that learns the best strategies through the Q-learning algorithm. It needs:
-        - alpha (optional): the learning rate, set between 0 and 1. Setting it to 0 means the Q-values are never updated, hence nothing is learned.
-                Setting a high value means that learning can occur quickly. Defaults to 0.3.
         - gamma (optional): discount factor, also set between 0 and 1. This models the fact that future rewards are worth less than immediate rewards.
                 Defaults to 0.95.
         - epsilon (optional): parameter for the epsilon-greedy policy, set between 0 and 1. It is the probability of taking a random action 
-                instead of following the Q-table. Defaults to 0.3.
+                instead of following the Q-table. Defaults to 0.2.
         - decay (optional): parameter for the decaying epsilon-greedy policy. It is the factor by which 'epsilon' is multiplied at each step, 
                 reducing it until reaching a minimum of 0.1. Defaults to 0.999.
     '''
-    def __init__(self, alpha = 0.3, gamma =0.95, epsilon = 0.3, decay = 0.999):
+    def __init__(self, gamma =0.95, epsilon = 0.2, decay = 0.999):
         super().__init__()
         self.name = "QLearning"
-        self.alpha = alpha
         self.gamma = gamma 
         self.epsilon = epsilon
         self.og_epsilon = epsilon # useful to clone
@@ -115,12 +112,13 @@ class QLearning(Strategy):
     def get_action(self, iteration):
         # decaying epsilon greedy policy
         self.epsilon = max(self.min_epsilon, self.epsilon*self.decay)
+        # save iteration number to compute alpha later
+        self.iteration = iteration
 
         # initialise first state, so first action, randomly
         if (iteration == 0) or (np.random.uniform(0,1) < self.epsilon):
             # choose random action
             action = np.random.choice([0, 1])
-            print('random! iteration: ', iteration)
         else:
             # select action that maximises Q table for last state
             action = np.argmax(self.q_table[self.mypast][self.theirpast])
@@ -146,11 +144,12 @@ class QLearning(Strategy):
         else:
             # Q-learning update
             deltaQ = r + self.gamma * self.q_table[my][their].max() - self.q_table[self.mypast][self.theirpast][self.mypast]
-        self.q_table[self.mypast][self.theirpast][self.mypast] += self.alpha * deltaQ
+        alpha = 1/(self.iteration +1)
+        self.q_table[self.mypast][self.theirpast][self.mypast] += alpha * deltaQ
         return self.q_table
 
     def clone(self):
-        return QLearning(self.alpha, self.gamma, self.og_epsilon, self.decay)
+        return QLearning(self.gamma, self.og_epsilon, self.decay)
 
     def print_qtable(self):
         return self.q_table
