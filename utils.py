@@ -100,11 +100,8 @@ class Meeting:
         Print the outcome of the meeting, as the outcome of the first (max 'max') games and the cumulative scores.
         The score is the sum of the scores obtained on each game, according to the payoff matrix. The higher the better.
         '''
-        addon = ''
-        if len(self.s1_rounds) > max:
-            addon = ' ...'
-        print("{}\t{}{} = {}".format(self.s1.name, ' '.join(map(str, self.s1_rounds[:max])), addon, self.s1_score))
-        print("{}\t{}{} = {}".format(self.s2.name, ' '.join(map(str, self.s2_rounds[:max])), addon, self.s2_score))
+        print("{}\t{} ... {} = {}".format(self.s1.name, ' '.join(map(str, self.s1_rounds[:max//2])), ' '.join(map(str, self.s1_rounds[-max//2:])), self.s1_score))
+        print("{}\t{} ... {} = {}".format(self.s2.name, ' '.join(map(str, self.s2_rounds[:max//2])), ' '.join(map(str, self.s2_rounds[-max//2:])), self.s2_score))
 
     def plot_cooperation(self):
         '''
