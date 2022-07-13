@@ -92,14 +92,14 @@ class QLearning(Strategy):
         - decay (optional): parameter for the decaying epsilon-greedy policy. It is the factor by which 'epsilon' is multiplied at each step, 
                 reducing it until reaching a minimum of 0.1. Defaults to 0.999.
     '''
-    def __init__(self, gamma =0.95, epsilon = 0.2, decay = 0.999):
+    def __init__(self, gamma = 0.95, epsilon = 0.2, decay = 1, min_epsilon = 0.1):
         super().__init__()
-        self.name = "QLearning"
+        self.name = f"QLearning -e: {epsilon} -dec: {decay}"
         self.gamma = gamma 
         self.epsilon = epsilon
         self.og_epsilon = epsilon # useful to clone
         self.decay = decay
-        self.min_epsilon = 0.1
+        self.min_epsilon = min_epsilon
         self.q_table = np.zeros((2,2,2)) # 4 possible states (2x2 actions), 2 possible actions: 4x2
         # save past actions, initiation is irrelevant to outcome as all entries are 0 in the beginning and first action is chosen randomly
         self.mypast = 0
