@@ -90,7 +90,7 @@ class QLearning(Strategy):
         - epsilon (optional): parameter for the epsilon-greedy policy, set between 0 and 1. It is the probability of taking a random action 
                 instead of following the Q-table. Defaults to 0.2.
         - decay (optional): parameter for the decaying epsilon-greedy policy. It is the factor by which 'epsilon' is multiplied at each step, 
-                reducing it until reaching a minimum of 0.1. Defaults to 0.999.
+                reducing it until reaching a minimum of 0.1. Defaults to 1 (non-decaying).
     '''
     def __init__(self, gamma = 0.95, epsilon = 0.2, decay = 1, min_epsilon = 0.1):
         super().__init__()
