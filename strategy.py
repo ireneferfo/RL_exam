@@ -97,7 +97,7 @@ class QLearning(Strategy):
         self.name = f"QLearning -e: {epsilon} -dec: {decay}"
         self.gamma = gamma 
         self.epsilon = epsilon
-        self.og_epsilon = epsilon # useful to clone
+        self.og_epsilon = epsilon # useful to clone if decay not 1
         self.decay = decay
         self.min_epsilon = min_epsilon
         self.q_table = np.zeros((2,2,2)) # 4 possible states (2x2 actions), 2 possible actions: 4x2
