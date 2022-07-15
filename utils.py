@@ -30,7 +30,7 @@ class Game:
         result = np.where(bool_x_y == True)
         listOfCoordinates = list(zip(result[0], result[1]))
         return listOfCoordinates
-
+ 
 
 class Meeting:
     """
