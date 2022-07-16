@@ -140,12 +140,12 @@ class QLearning(Strategy):
 
     def single_step_update(self, my, their, r): 
         if self.done: 
-            deltaQ = r + 0 - self.q_table[self.mypast][self.theirpast][self.mypast]
+            deltaQ = r + 0 - self.q_table[self.mypast][self.theirpast][my]
         else:
             # Q-learning update
-            deltaQ = r + self.gamma * self.q_table[my][their].max() - self.q_table[self.mypast][self.theirpast][self.mypast]
+            deltaQ = r + self.gamma * self.q_table[my][their].max() - self.q_table[self.mypast][self.theirpast][my]
         alpha = 1/(self.iteration +1)
-        self.q_table[self.mypast][self.theirpast][self.mypast] += alpha * deltaQ
+        self.q_table[self.mypast][self.theirpast][my] += alpha * deltaQ
         return self.q_table
 
     def clone(self):
